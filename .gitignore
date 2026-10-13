@@ -19,5 +19,7 @@ evidence/**/*.txt
 
 # Local overrides
 *.local
-.env
-.envrc
+.env# Python cache
+__pycache__/
+*.pyc
+.envrc 
