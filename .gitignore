@@ -1,0 +1,23 @@
+# IDE folders
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archives (prevents future zip files from being tracked)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Test evidence
+evidence/**/*.log
+evidence/**/*.txt
+
+# Local overrides
+*.local
+.env
+.envrc
