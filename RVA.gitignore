@@ -1,0 +1,95 @@
+# RVA repository ignore rules
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+secrets/
+credentials/
+
+# Local database and test state
+*.db
+*.sqlite
+*.sqlite3
+*.pid
+*.log
+pgdata/
+postgres-data/
+coverage/
+.nyc_output/
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+out/
+tmp/
+temp/
+.cache/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# IDE and OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Generated evidence and test output
+evidence/**/*.log
+evidence/**/*.txt
+!evidence/.gitkeep
+
+# Repackaged/generated release archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Local PostgreSQL tooling output
+pgbench_log.*
+*.pgpass
+
+# Runtime and local override files
+*.local
+*.runtime
+.envrc
+
+# Do not ignore source migrations, contracts, docs, tests or workflows
+!db/
+!db/**
+!contracts/
+!contracts/**
+!docs/
+!docs/**
+!src/
+!src/**
+!tests/
+!tests/**
+!scripts/
+!scripts/**
+!.github/
+!.github/**
+
+# Keep the vendored Step 12 dependency only if CI intentionally requires it.
+# To exclude it instead, uncomment the next line:
+# vendor/RVA-SaaS-Step12-Complete.zip
