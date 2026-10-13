@@ -1,0 +1,338 @@
+openapi: 3.1.1
+info:
+  title: RVA Canonical Resource API
+  version: 1.0.0-alpha.1
+  description: Tenant-scoped Phase 13A resource, facet, source-mapping and bitemporal history contracts.
+servers:
+  - url: https://api.example.invalid
+security:
+  - bearerAuth: []
+tags:
+  - name: Resources
+  - name: Resource history
+paths:
+  /v1/resources:
+    get:
+      tags: [Resources]
+      operationId: listResources
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+        - name: resourceType
+          in: query
+          schema: {type: string, pattern: '^[A-Z][A-Z0-9_]{1,127}$'}
+      responses:
+        '200':
+          description: Tenant-scoped resource page.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ResourcePage'}
+        default: {$ref: '#/components/responses/Problem'}
+    post:
+      tags: [Resources]
+      operationId: createResource
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ResourceCreate'}
+      responses:
+        '201':
+          description: Created canonical resource.
+          headers:
+            Location: {schema: {type: string}}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Resource'}
+        default: {$ref: '#/components/responses/Problem'}
+  /v1/resources/{resourceId}:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+    get:
+      tags: [Resources]
+      operationId: getResource
+      responses:
+        '200':
+          description: Resource visible to the authenticated tenant.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Resource'}
+        default: {$ref: '#/components/responses/Problem'}
+    patch:
+      tags: [Resources]
+      operationId: updateResourceIdentity
+      parameters:
+        - $ref: '#/components/parameters/IfMatch'
+      requestBody:
+        required: true
+        content:
+          application/merge-patch+json:
+            schema: {$ref: '#/components/schemas/ResourcePatch'}
+      responses:
+        '200':
+          description: Updated non-historical resource identity metadata.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Resource'}
+        default: {$ref: '#/components/responses/Problem'}
+  /v1/resources/{resourceId}/facets:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+    get:
+      tags: [Resource history]
+      operationId: listResourceFacets
+      parameters:
+        - $ref: '#/components/parameters/EffectiveAt'
+        - $ref: '#/components/parameters/RecordedAt'
+        - name: facetKind
+          in: query
+          schema: {$ref: '#/components/schemas/FacetKind'}
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Facets matching the supplied bitemporal instants.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FacetPage'}
+        default: {$ref: '#/components/responses/Problem'}
+    post:
+      tags: [Resource history]
+      operationId: appendResourceFacet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/FacetAppend'}
+      responses:
+        '201':
+          description: Appended immutable resource facet.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ResourceFacet'}
+        default: {$ref: '#/components/responses/Problem'}
+  /v1/resources/{resourceId}/events:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+    get:
+      tags: [Resource history]
+      operationId: listResourceEvents
+      parameters:
+        - $ref: '#/components/parameters/EffectiveAt'
+        - $ref: '#/components/parameters/RecordedAt'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Append-only event history.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/EventPage'}
+        default: {$ref: '#/components/responses/Problem'}
+    post:
+      tags: [Resource history]
+      operationId: appendResourceEvent
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/EventAppend'}
+      responses:
+        '201':
+          description: Appended resource event.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ResourceEvent'}
+        default: {$ref: '#/components/responses/Problem'}
+  /v1/resources/{resourceId}/source-mappings:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+    get:
+      tags: [Resources]
+      operationId: listResourceSourceMappings
+      responses:
+        '200':
+          description: Source mappings for the resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/SourceMapping'}}
+        default: {$ref: '#/components/responses/Problem'}
+    post:
+      tags: [Resources]
+      operationId: createResourceSourceMapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SourceMappingCreate'}
+      responses:
+        '201':
+          description: Created tenant-scoped source mapping.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/SourceMapping'}
+        default: {$ref: '#/components/responses/Problem'}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ResourceId: {name: resourceId, in: path, required: true, schema: {type: string, format: uuid}}
+    Cursor: {name: cursor, in: query, schema: {type: string, maxLength: 1024}}
+    Limit: {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 50}}
+    EffectiveAt: {name: effectiveAt, in: query, schema: {type: string, format: date-time}}
+    RecordedAt: {name: recordedAt, in: query, schema: {type: string, format: date-time}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, required: true, schema: {type: string, minLength: 16, maxLength: 200}}
+    IfMatch: {name: If-Match, in: header, required: true, schema: {type: string, minLength: 1, maxLength: 200}}
+  responses:
+    Problem:
+      description: Safe API error.
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+  schemas:
+    FacetKind:
+      type: string
+      enum: [LIFECYCLE, CONDITION, AVAILABILITY, CUSTODY, CLASSIFICATION, DOMAIN_ATTRIBUTES]
+    TimeRange:
+      type: object
+      required: [from]
+      properties:
+        from: {type: string, format: date-time}
+        to: {type: [string, 'null'], format: date-time}
+    Resource:
+      type: object
+      required: [resourceId, canonicalId, resourceType, displayName, createdAt, revision]
+      properties:
+        resourceId: {type: string, format: uuid}
+        canonicalId: {type: string, pattern: '^urn:rva:[a-z0-9][a-z0-9._:-]{1,510}$'}
+        resourceType: {type: string, pattern: '^[A-Z][A-Z0-9_]{1,127}$'}
+        displayName: {type: string, minLength: 1, maxLength: 300}
+        createdAt: {type: string, format: date-time}
+        retiredAt: {type: [string, 'null'], format: date-time}
+        revision: {type: integer, minimum: 1}
+    ResourceCreate:
+      type: object
+      required: [canonicalId, resourceType, displayName]
+      properties:
+        canonicalId: {type: string, pattern: '^urn:rva:[a-z0-9][a-z0-9._:-]{1,510}$'}
+        resourceType: {type: string, pattern: '^[A-Z][A-Z0-9_]{1,127}$'}
+        displayName: {type: string, minLength: 1, maxLength: 300}
+      additionalProperties: false
+    ResourcePatch:
+      type: object
+      minProperties: 1
+      properties:
+        displayName: {type: string, minLength: 1, maxLength: 300}
+        retiredAt: {type: [string, 'null'], format: date-time}
+      additionalProperties: false
+    ResourceFacet:
+      type: object
+      required: [facetId, resourceId, facetKind, facetSchema, facetSchemaVersion, payload, effectivePeriod, recordedAt, sourceHash]
+      properties:
+        facetId: {type: string, format: uuid}
+        resourceId: {type: string, format: uuid}
+        facetKind: {$ref: '#/components/schemas/FacetKind'}
+        facetSchema: {type: string}
+        facetSchemaVersion: {type: integer, minimum: 1}
+        payload: {type: object}
+        effectivePeriod: {$ref: '#/components/schemas/TimeRange'}
+        recordedAt: {type: string, format: date-time}
+        provenanceSource: {type: string}
+        sourceHash: {type: string, pattern: '^[0-9a-f]{64}$'}
+    FacetAppend:
+      type: object
+      required: [facetKind, facetSchema, facetSchemaVersion, payload, effectivePeriod, provenanceSource, sourceHash]
+      properties:
+        facetKind: {$ref: '#/components/schemas/FacetKind'}
+        facetSchema: {type: string}
+        facetSchemaVersion: {type: integer, minimum: 1}
+        payload: {type: object}
+        effectivePeriod: {$ref: '#/components/schemas/TimeRange'}
+        provenanceSource: {type: string}
+        sourceHash: {type: string, pattern: '^[0-9a-f]{64}$'}
+      additionalProperties: false
+    ResourceEvent:
+      type: object
+      required: [eventId, resourceId, eventType, eventSchemaVersion, effectivePeriod, recordedAt, sourceReference, sourceHash, correlationId, payload]
+      properties:
+        eventId: {type: string, format: uuid}
+        resourceId: {type: string, format: uuid}
+        eventType: {type: string, pattern: '^[A-Z][A-Z0-9_.-]{1,127}$'}
+        eventSchemaVersion: {type: integer, minimum: 1}
+        effectivePeriod: {$ref: '#/components/schemas/TimeRange'}
+        recordedAt: {type: string, format: date-time}
+        sourceReference: {type: string}
+        sourceHash: {type: string, pattern: '^[0-9a-f]{64}$'}
+        correctionOfEventId: {type: [string, 'null'], format: uuid}
+        supersedesEventId: {type: [string, 'null'], format: uuid}
+        correlationId: {type: string, format: uuid}
+        causationId: {type: [string, 'null'], format: uuid}
+        payload: {type: object}
+    EventAppend:
+      allOf:
+        - $ref: '#/components/schemas/ResourceEvent'
+        - type: object
+          properties:
+            eventId: false
+            resourceId: false
+            recordedAt: false
+    SourceMapping:
+      type: object
+      required: [mappingId, resourceId, connectorCode, sourceSystem, sourceObjectType, sourceObjectId, firstObservedAt, lastObservedAt, sourceHash]
+      properties:
+        mappingId: {type: string, format: uuid}
+        resourceId: {type: string, format: uuid}
+        connectorCode: {type: string}
+        sourceSystem: {type: string}
+        sourceObjectType: {type: string}
+        sourceObjectId: {type: string}
+        sourceVersion: {type: [string, 'null']}
+        firstObservedAt: {type: string, format: date-time}
+        lastObservedAt: {type: string, format: date-time}
+        sourceHash: {type: string, pattern: '^[0-9a-f]{64}$'}
+    SourceMappingCreate:
+      allOf:
+        - $ref: '#/components/schemas/SourceMapping'
+        - type: object
+          properties:
+            mappingId: false
+            resourceId: false
+    ResourcePage:
+      type: object
+      required: [items]
+      properties:
+        items: {type: array, items: {$ref: '#/components/schemas/Resource'}}
+        nextCursor: {type: [string, 'null']}
+    FacetPage:
+      type: object
+      required: [items]
+      properties:
+        items: {type: array, items: {$ref: '#/components/schemas/ResourceFacet'}}
+        nextCursor: {type: [string, 'null']}
+    EventPage:
+      type: object
+      required: [items]
+      properties:
+        items: {type: array, items: {$ref: '#/components/schemas/ResourceEvent'}}
+        nextCursor: {type: [string, 'null']}
+    Problem:
+      type: object
+      required: [type, title, status, code, requestId]
+      properties:
+        type: {type: string, format: uri-reference}
+        title: {type: string}
+        status: {type: integer, minimum: 400, maximum: 599}
+        code: {type: string}
+        detail: {type: string}
+        requestId: {type: string}

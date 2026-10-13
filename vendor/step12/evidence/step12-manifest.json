@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "artifacts": [
+    {
+      "path": ".github/workflows/step12.yml",
+      "sha256": "f8693822f3268a6a33ba1c1f3222c38434fce3a53e568bf2d7f89b2b00032293",
+      "bytes": 1123
+    },
+    {
+      "path": "DEVELOPMENT-STATUS.md",
+      "sha256": "ed3372d107aee390525da2f023247467e7492226e31ebcc58e042d25b6d6f9b5",
+      "bytes": 1701
+    },
+    {
+      "path": "README.md",
+      "sha256": "e6f1beb655ba1afa12bab71db41a353fcb4bd873dc364896032c9eada3a78450",
+      "bytes": 496
+    },
+    {
+      "path": "STEP-12-IMPLEMENTATION-BACKLOG.md",
+      "sha256": "92b6d8fe0d680ff9f0299c07d06172191cc782c67f964700b3603424b0582128",
+      "bytes": 4099
+    },
+    {
+      "path": "db/migrations/0001_core_foundation.down.sql",
+      "sha256": "d4343cc4a46051582f193cd34fadbab215d0b7d82aee8018291f8e0c3dd325a4",
+      "bytes": 381
+    },
+    {
+      "path": "db/migrations/0001_core_foundation.up.sql",
+      "sha256": "57db905732343f96a763b555b272ea1b6560af18da3a2b2e9df0c6a51e075cf8",
+      "bytes": 4508
+    },
+    {
+      "path": "db/migrations/0002_application_role.down.sql",
+      "sha256": "525d5dd640fd4d6a703ff94db0d5932d2b72a712da0bba073f92b49607c46df3",
+      "bytes": 149
+    },
+    {
+      "path": "db/migrations/0002_application_role.up.sql",
+      "sha256": "421da483c79beda5bf8b8679e6fdccadc6a33a6c9ab203f6adee145276c904ca",
+      "bytes": 441
+    },
+    {
+      "path": "db/tests/tenant_isolation.sql",
+      "sha256": "2e059b7d5e7b4b0024490bcaa47db9dc48e4ead499168908f32ce6afe31b6f95",
+      "bytes": 1713
+    },
+    {
+      "path": "docs/adrs/ADR-001-tenant-isolation.md",
+      "sha256": "6604c7e62b7c564db3cfc3675d6f4e8df3129946c91000a3720b902a6f510a37",
+      "bytes": 3301
+    },
+    {
+      "path": "docs/architecture/step12-architecture.md",
+      "sha256": "beefb8a1ff464d2c97f5feb3eb2507f06b03cb0135fbfb3933f3143776ca153f",
+      "bytes": 522
+    },
+    {
+      "path": "docs/runbooks/tenant-isolation-incident.md",
+      "sha256": "d88c9711a5c5e19decbb9dde5b795f629f4c740c7a22fd59197790559532f29d",
+      "bytes": 425
+    },
+    {
+      "path": "docs/security/threat-model.md",
+      "sha256": "2bba879a68385867f34def53dc021bd43110b52b5a452b508b230ab00a7f9006",
+      "bytes": 546
+    },
+    {
+      "path": "docs/testing/test-plan.md",
+      "sha256": "633be6cb85258a7c94ceeee67f4c2157288fbc9b3c85d51b0d0248e8310e21ca",
+      "bytes": 622
+    },
+    {
+      "path": "docs/traceability/requirements.md",
+      "sha256": "46654af72bba2f76b68997c55c32a220c53dc89062ccecddaa00559c7e08f45d",
+      "bytes": 455
+    },
+    {
+      "path": "package.json",
+      "sha256": "3c3a989cf4574e42f212357b6095351e64689db2242765f5d05a0e3e7c4c0069",
+      "bytes": 336
+    },
+    {
+      "path": "scripts/generate_manifest.py",
+      "sha256": "0dd780aa4d1ffd9e9d1b20f4ec6243f98b3d54ce5519d7cf151d31912399d112",
+      "bytes": 514
+    },
+    {
+      "path": "scripts/run_postgres_integration.sh",
+      "sha256": "32be334f3299fc59620230f68eb57fceeda1103fb6829d5f4a13cfbf843ad9e2",
+      "bytes": 624
+    },
+    {
+      "path": "scripts/validate_step12.py",
+      "sha256": "588948f89e03605a6f346151f487349d0d1f8b16e7b6942835a3c6d7ca921567",
+      "bytes": 1922
+    },
+    {
+      "path": "src/api/errors.mjs",
+      "sha256": "6d5e7564a41da45776c71a7259341eb442cde4048812f60fc0df91c50edb04e1",
+      "bytes": 342
+    },
+    {
+      "path": "src/evidence/object-keys.mjs",
+      "sha256": "bc4b0c4e516541dd0fa235136b9f8fd54a40241da886d40487acbd75e1ea5a1f",
+      "bytes": 351
+    },
+    {
+      "path": "src/tenancy/context.mjs",
+      "sha256": "e477ce64a9744eb03465c7d6de4d46ca3902073e85711ee2a5ae5d34993adb5e",
+      "bytes": 1816
+    },
+    {
+      "path": "src/tenancy/namespaces.mjs",
+      "sha256": "08046bc59bccee530f4d4f348476dc964239d26b18d0db4939d1cb1899583600",
+      "bytes": 596
+    },
+    {
+      "path": "src/tenancy/worker-envelope.mjs",
+      "sha256": "3a6351770280938705852ee72f1db2a724b93ee3efbb93e487bc9e3f15742aee",
+      "bytes": 1386
+    },
+    {
+      "path": "tests/tenancy.test.mjs",
+      "sha256": "feeb0a6e7cbdc24ba466bdf8ec968e403cda0dbf3bf560b0303b8f787e7007d8",
+      "bytes": 3067
+    }
+  ]
+}

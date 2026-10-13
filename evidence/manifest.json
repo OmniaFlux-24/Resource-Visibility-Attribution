@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "artifacts": [
+    {
+      "path": ".github/workflows/phase13a-ci.yml",
+      "sha256": "5eaae812ccefd8d3e3a03340c6264f62974399a42b138292102352bb6a2902f1",
+      "bytes": 1976
+    },
+    {
+      "path": ".github/workflows/postgres17-native.yml",
+      "sha256": "a54662716c79aaf8a2b452f9b639464ddd8461a2407968b517a9cba243dcfdaa",
+      "bytes": 736
+    },
+    {
+      "path": "README.md",
+      "sha256": "cdd2645bd1239a2c7662d7d699ef69b9c19602d1ac8d066526c92a2075af92ac",
+      "bytes": 406
+    },
+    {
+      "path": "contracts/openapi.yaml",
+      "sha256": "8f965fb989783f254b5abbcbaa16907acc737872f70a365c24a7a5ed77290d6f",
+      "bytes": 12831
+    },
+    {
+      "path": "db/migrations/0010_resource_ontology.down.sql",
+      "sha256": "75327d6d8ee2ad3f0828e8906f88a2f1026f666fabd78e2ee532d1bbad0d8244",
+      "bytes": 231
+    },
+    {
+      "path": "db/migrations/0010_resource_ontology.up.sql",
+      "sha256": "938ca34c7aa0de3ebec95f386004c418753a89333c314fe33a2c3057d95c4b7d",
+      "bytes": 6865
+    },
+    {
+      "path": "db/migrations/0011_resource_revision_idempotency.down.sql",
+      "sha256": "fa79f3e4dec0cdbb6a5ca8586e6f529cf8083ea5686345d6c326cbc3fd957ee6",
+      "bytes": 119
+    },
+    {
+      "path": "db/migrations/0011_resource_revision_idempotency.up.sql",
+      "sha256": "62db66dcaca58e4c24ca04dbcfcd22ad0507fdb7ba179e0a85fa3d911d27b95b",
+      "bytes": 1902
+    },
+    {
+      "path": "db/tests/concurrency/session_a.sql",
+      "sha256": "6826e08d6c11482df95305d23f0962585b5d407d170f6ea1143f36c846010e7a",
+      "bytes": 778
+    },
+    {
+      "path": "db/tests/concurrency/session_b_conflict.sql",
+      "sha256": "8fcdd24656345b274a097c44cf0b4780d06ad8d86fcedf32c608684e9ea76f8b",
+      "bytes": 488
+    },
+    {
+      "path": "db/tests/concurrency/session_b_same.sql",
+      "sha256": "11a4bd4895a0c21355b48031202107271ecaeeb9a68c39fc38de18ef28bc2858",
+      "bytes": 950
+    },
+    {
+      "path": "db/tests/pgbench/idempotency_same_key.sql",
+      "sha256": "643889a3b6e3ff057d5ad1005e362cab2fa970f4257b9bfe9073c0fe90f13d1b",
+      "bytes": 505
+    },
+    {
+      "path": "db/tests/pgbench/idempotency_unique_keys.sql",
+      "sha256": "b0eb2249cc25743012d0f99c64bf2788ace79d14fde3106c3b254c77b57286eb",
+      "bytes": 561
+    },
+    {
+      "path": "db/tests/phase13a_acceptance.sql",
+      "sha256": "2eefe8e58c90ab2947a8695729e2722e21b3b3e0ccea6eb9d74851ef8d00883c",
+      "bytes": 2751
+    },
+    {
+      "path": "db/tests/phase13a_bitemporal.sql",
+      "sha256": "9dc9765cfc5cbbc42ee1f823ccddc8300303ecbfa19b0ce8df798f70d1d67bb7",
+      "bytes": 2343
+    },
+    {
+      "path": "db/tests/phase13a_revision_idempotency.sql",
+      "sha256": "287edf5ee163eae89f2551544644641bc338c8ddb0904220782c45549c085148",
+      "bytes": 2287
+    },
+    {
+      "path": "docs/architecture/resource-ontology.md",
+      "sha256": "ce2ab5953c39dd182279340b4ed3020219110c1ab9507ce519d7b68ed9381858",
+      "bytes": 547
+    },
+    {
+      "path": "docs/migrations/0010-to-0011-diff.md",
+      "sha256": "51ec58c6ac6b5a0b8fa769a23d6d4ad459b6f94ea7f9f431b5ab4f82f9ab0577",
+      "bytes": 1844
+    },
+    {
+      "path": "docs/migrations/0011-rollback-review.md",
+      "sha256": "8c778d5a5a32ca69c54add287ee960024ad1a0469883a8429da351f9fd17dd72",
+      "bytes": 2555
+    },
+    {
+      "path": "docs/migrations/0011_resource_revision_idempotency.patch",
+      "sha256": "36991fbb55d881805aafd16a0312eabba6bd22ee157f66940530de29505725fb",
+      "bytes": 2240
+    },
+    {
+      "path": "docs/security/authorization-boundary.md",
+      "sha256": "11ae336d5707f8dcb85beb87d91d57c17f32384af403a1b7daa11fda50fd37db",
+      "bytes": 2328
+    },
+    {
+      "path": "docs/security/threat-model.md",
+      "sha256": "2d1ced0a9642969f4c208c4c1a859bfff316a8ecc5f5ed0694db85c3e35f4a2d",
+      "bytes": 508
+    },
+    {
+      "path": "docs/testing/acceptance-plan.md",
+      "sha256": "fb7ce4ab1dc80f74569627d0979ed6a20fdee5913366b5739e64af743585814d",
+      "bytes": 588
+    },
+    {
+      "path": "docs/testing/pgbench-idempotency-stress.md",
+      "sha256": "6072801c970e6b26837d187fa0d70679c607e19ddc4b00ccc1079a087992a8c2",
+      "bytes": 883
+    },
+    {
+      "path": "evidence/postgres17-local-attempt.txt",
+      "sha256": "9dc32ba552caa0f9e69da35c4750cc37b29cbad06d51182a3ec0cd5698284660",
+      "bytes": 53
+    },
+    {
+      "path": "evidence/postgres17-native-gate.txt",
+      "sha256": "9dc32ba552caa0f9e69da35c4750cc37b29cbad06d51182a3ec0cd5698284660",
+      "bytes": 53
+    },
+    {
+      "path": "run_contract_tests.sh",
+      "sha256": "645b2924da692b4acd60522aa3eda8b399a4ce39caf38769e2e51ae02a77236c",
+      "bytes": 279
+    },
+    {
+      "path": "runbooks/PHASE-13A-ROLLBACK-RUNBOOK.md",
+      "sha256": "24a58072fa88bac99a9a457f9a21546eed68b35c0430f73942e1914dc2309d54",
+      "bytes": 1590
+    },
+    {
+      "path": "scripts/__pycache__/validate_phase13a.cpython-312.pyc",
+      "sha256": "fc71ae67a7ce20c8e2cbaf12cb8e92bf9ec2adfc87700be0d670b659502dd7b6",
+      "bytes": 6715
+    },
+    {
+      "path": "scripts/generate_manifest.py",
+      "sha256": "1f6d2cc9a1c5e78f83e7d75a365e5e8bb0bc32a8cbdd44db578cc8929d4ab117",
+      "bytes": 481
+    },
+    {
+      "path": "scripts/run_idempotency_concurrency.sh",
+      "sha256": "e4c06e0bc3fe5539d1c665b4e204b3a8cddb23024ba6000d1e1d9a2c8e7d0f56",
+      "bytes": 1324
+    },
+    {
+      "path": "scripts/run_pgbench_idempotency_stress.sh",
+      "sha256": "6e6e4a207421e5673e8982753972370e6fa648d204e24f944c998476d85ec4ae",
+      "bytes": 1990
+    },
+    {
+      "path": "scripts/run_postgres17_acceptance.sh",
+      "sha256": "ed21aa67716bcf25de2e12c344485e885dc804bfbff550b5923d4713643e1262",
+      "bytes": 2809
+    },
+    {
+      "path": "scripts/run_postgres17_ephemeral.sh",
+      "sha256": "7d2d60581d81a956f545c7ac1578e98e031ad656b9ea44a22d684f35e8408eb4",
+      "bytes": 715
+    },
+    {
+      "path": "scripts/validate_phase13a.py",
+      "sha256": "25ef325fa844b336c26b7de48d8587af32d440dacbb98feb1552a07e95bf594e",
+      "bytes": 3646
+    },
+    {
+      "path": "src/http/resource-handlers.mjs",
+      "sha256": "1b41ceb3d6107d7fc94269b993fd2a6f82a3e21d19b381b1148ff500172a15e2",
+      "bytes": 9886
+    },
+    {
+      "path": "src/repositories/postgres-idempotency-store.mjs",
+      "sha256": "db9dc274a85af06fb869ea69b3c0fc0f634f07082df922b9ef918081fefe2936",
+      "bytes": 3066
+    },
+    {
+      "path": "src/repositories/resource-query-repository.mjs",
+      "sha256": "3e8eb978a4775b1ff82ffaae546ab464ffcac0922065bc1e817448aeff8a7efd",
+      "bytes": 6460
+    },
+    {
+      "path": "tests/handlers.integration.test.mjs",
+      "sha256": "390e61a9fd8d18b31160c7f77140535c284f67bd484ef2a2b42759d3c443f7fd",
+      "bytes": 4999
+    },
+    {
+      "path": "tests/idempotency.test.mjs",
+      "sha256": "7b2c6b5dbaf9a191ccde7c2350b764fef545d42cf80ddb50275ba9406dc249aa",
+      "bytes": 2475
+    },
+    {
+      "path": "tests/openapi_contract_test.py",
+      "sha256": "3a482e04effb9f4b6d6a07f9576bf983e5ce4034dc2f34a2447fe355c0001cd5",
+      "bytes": 2726
+    },
+    {
+      "path": "tests/repository.test.mjs",
+      "sha256": "f63f067c4e9838643e2003a235985d9087a478319c7ee44fa7e3ba29deeec6d3",
+      "bytes": 2091
+    },
+    {
+      "path": "tickets/BITEMPORAL-QUERY-REPOSITORY-TICKETS.md",
+      "sha256": "ca2e1d4838a2f6856c6a73766c5a978ee7055df18ebc32eeef2be1fed1200fd0",
+      "bytes": 3971
+    },
+    {
+      "path": "tickets/PHASE-13A-TICKETS.md",
+      "sha256": "9e6c436157893d2eefaa506d55a59165244c1777519fa1a11effe20c25a59752",
+      "bytes": 6009
+    },
+    {
+      "path": "vendor/RVA-SaaS-Step12-Complete.zip",
+      "sha256": "9e1176cfd747f8c8004abbd83860c93c2e95671788c83eeb8bb870809303cf3b",
+      "bytes": 61360
+    }
+  ]
+}

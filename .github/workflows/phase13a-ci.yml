@@ -1,0 +1,50 @@
+name: phase13a-ci
+on: [push, pull_request, workflow_dispatch]
+permissions: {contents: read}
+jobs:
+  contract-and-static:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with: {node-version: 22}
+      - name: Install YAML parser
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+      - run: python3 scripts/validate_phase13a.py .
+      - run: bash run_contract_tests.sh
+  postgres17-native:
+    runs-on: ubuntu-24.04
+    needs: contract-and-static
+    steps:
+      - uses: actions/checkout@v6
+      - name: Stage Step 12 complete source
+        run: |
+          test -f vendor/RVA-SaaS-Step12-Complete.zip
+          unzip -q vendor/RVA-SaaS-Step12-Complete.zip -d "$RUNNER_TEMP/step12"
+          test -d "$RUNNER_TEMP/step12/RVA-SaaS-Step12-Complete/db/migrations"
+          echo "STEP12_ROOT=$RUNNER_TEMP/step12/RVA-SaaS-Step12-Complete" >> "$GITHUB_ENV"
+      - name: Install native PostgreSQL 17
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-common ca-certificates
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get update
+          sudo apt-get install -y postgresql-17 postgresql-client-17
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+      - name: Execute native migration and ontology gates
+        env:
+          PGBENCH_CLIENTS: 16
+          PGBENCH_THREADS: 4
+          PGBENCH_TRANSACTIONS: 50
+        run: bash scripts/run_postgres17_ephemeral.sh 2>&1 | tee evidence/postgres17-ci-output.txt
+      - name: Retain PostgreSQL acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: phase13a-postgres17-evidence
+          path: |
+            evidence/postgres17-ci-output.txt
+            evidence/idempotency-concurrency/
+            evidence/pgbench/
+          if-no-files-found: error
+          retention-days: 30

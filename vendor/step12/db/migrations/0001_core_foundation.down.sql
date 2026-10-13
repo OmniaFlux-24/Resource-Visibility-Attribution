@@ -1,0 +1,11 @@
+BEGIN;
+DROP TABLE IF EXISTS rva.evidence_objects;
+DROP TABLE IF EXISTS rva.audit_events;
+DROP TABLE IF EXISTS rva.principals;
+DROP TABLE IF EXISTS rva.tenants;
+DROP FUNCTION IF EXISTS rva.block_mutation();
+DROP FUNCTION IF EXISTS rva.current_principal_id();
+DROP FUNCTION IF EXISTS rva.current_tenant_id();
+DROP TYPE IF EXISTS rva.tenant_status;
+DROP SCHEMA IF EXISTS rva;
+COMMIT;

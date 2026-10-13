@@ -1,0 +1,30 @@
+name: step12-core-foundation
+on: [push, pull_request, workflow_dispatch]
+permissions: {contents: read}
+jobs:
+  static-and-unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with: {node-version: 22}
+      - run: python3 scripts/validate_step12.py .
+      - run: npm test
+  postgres17:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install native PostgreSQL 17
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-common ca-certificates
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get update
+          sudo apt-get install -y postgresql-17 postgresql-client-17
+          sudo pg_ctlcluster 17 main start || true
+      - name: Prepare isolated database
+        run: |
+          sudo -u postgres createdb rva_step12
+          sudo -u postgres psql -d rva_step12 -c "ALTER DATABASE rva_step12 OWNER TO postgres"
+      - run: bash scripts/run_postgres_integration.sh
+        env: {RVA_DATABASE_URL: postgresql://postgres@/rva_step12}

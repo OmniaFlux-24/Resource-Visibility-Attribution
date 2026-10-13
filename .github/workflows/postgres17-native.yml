@@ -1,0 +1,20 @@
+name: phase13a-postgres17-native
+on: [push, pull_request, workflow_dispatch]
+permissions: {contents: read}
+jobs:
+  acceptance:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install PostgreSQL 17
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-common ca-certificates
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get update
+          sudo apt-get install -y postgresql-17 postgresql-client-17
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+      - name: Run native acceptance
+        env:
+          STEP12_ROOT: ../RVA-SaaS-Step12-Complete
+        run: bash scripts/run_postgres17_ephemeral.sh
