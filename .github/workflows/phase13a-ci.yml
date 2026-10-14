@@ -19,15 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Stage Step 12 complete source
-        run: |
-          test -f RVA-SaaS-Step12-Complete.zip
-          unzip -q RVA-SaaS-Step12-Complete.zip -d "$RUNNER_TEMP/step12"
-          if [ -d "$RUNNER_TEMP/step12/RVA-SaaS-Step12-Complete" ]; then
-            echo "STEP12_ROOT=$RUNNER_TEMP/step12/RVA-SaaS-Step12-Complete" >> "$GITHUB_ENV"
-          else
-            echo "STEP12_ROOT=$RUNNER_TEMP/step12" >> "$GITHUB_ENV"
-          fi
+      - name: Set Step 12 Root Path
+        run: echo "STEP12_ROOT=$GITHUB_WORKSPACE/vendor/step12" >> "$GITHUB_ENV"
 
       - name: Ensure evidence directories exist
         run: mkdir -p evidence/idempotency-concurrency evidence/pgbench
