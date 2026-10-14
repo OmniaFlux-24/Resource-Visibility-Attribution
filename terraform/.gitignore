@@ -1,0 +1,16 @@
+# Terraform state files (NEVER commit secrets or state)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Crash logs
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local .tfvars files (may contain secrets)
+*.auto.tfvars
+*.tfvars
